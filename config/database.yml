@@ -21,7 +21,7 @@ default: &default
 
 development:
   <<: *default
-  database: popmenu_inteview_development
+  url: <%= ENV["DATABASE_URL_DEV"] %>
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -55,7 +55,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: popmenu_inteview_test
+  url: <%= ENV["DATABASE_URL_TST"] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,6 +79,4 @@ test:
 #
 production:
   <<: *default
-  database: popmenu_inteview_production
-  username: popmenu_inteview
-  password: <%= ENV["POPMENU_INTEVIEW_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>

@@ -1,0 +1,24 @@
+lunch_burger:
+  menu: lunch
+  item: burger
+  price: 9.99
+
+lunch_salad:
+  menu: lunch
+  item: salad
+  price: 7.99
+
+dinner_fries:
+  menu: dinner
+  item: fries
+  price: 3.99
+
+dinner_salad:
+  menu: dinner
+  item: salad
+  price: 8.99
+
+dinner_steak:
+  menu: dinner
+  item: steak
+  price: 24.99

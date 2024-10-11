@@ -1,0 +1,11 @@
+burger:
+  name: Burger
+
+salad:
+  name: Salad
+
+fries:
+  name: Fries
+
+steak:
+  name: Steak

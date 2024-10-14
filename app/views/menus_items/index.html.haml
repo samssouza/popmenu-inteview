@@ -1,0 +1,23 @@
+%h1 Listing menus_items
+
+%table
+  %thead
+    %tr
+      %th Item
+      %th Menu
+      %th
+      %th
+      %th
+
+  %tbody
+    - @menus_items.each do |menus_item|
+      %tr
+        %td= menus_item.item
+        %td= menus_item.menu
+        %td= link_to 'Show', menus_item
+        %td= link_to 'Edit', edit_menus_item_path(menus_item)
+        %td= link_to 'Destroy', menus_item, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Menus item', new_menus_item_path

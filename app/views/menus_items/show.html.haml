@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Item:
+  = @menus_item.item
+%p
+  %b Menu:
+  = @menus_item.menu
+
+= link_to 'Edit', edit_menus_item_path(@menus_item)
+\|
+= link_to 'Back', menus_items_path

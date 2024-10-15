@@ -28,9 +28,18 @@ class ItemTest < ActiveSupport::TestCase
     assert Item.exists?(items(:burger).id), "Item was deleted from the database despite being referenced"
   end
 
-  test "should be ablee to delete item that is not in use" do
+  test "should be able to delete item that is not in use" do
     unused_item = Item.create(name: "Unused Item")
     assert unused_item.destroy, "Failed to delete unused item"
     assert_not Item.exists?(unused_item.id), "Unused item was not deleted from the database"
+  end
+
+
+  test "menu item can be on multiple menus of a restaurant" do
+    salad = items(:salad)
+    popos = restaurants(:popos)
+
+    assert_includes popos.menus.first.items, salad
+    assert_includes popos.menus.second.items, salad
   end
 end

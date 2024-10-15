@@ -1,5 +1,6 @@
 lunch:
   name: Lunch
-
+  restaurant: popos
 dinner:
   name: Dinner
+  restaurant: popos

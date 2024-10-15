@@ -12,7 +12,7 @@ class MenuTest < ActiveSupport::TestCase
   end
 
   test "should save valid menu" do
-    menu = Menu.new(name: "Brunch")
+    menu = Menu.new(name: "Brunch", restaurant: restaurants(:popos))
     assert menu.save, "Could not save a valid menu"
   end
 

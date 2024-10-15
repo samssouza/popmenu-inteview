@@ -17,7 +17,7 @@ class MenusControllerTest < ActionDispatch::IntegrationTest
 
   test "should create menu" do
     assert_difference("Menu.count") do
-      post menus_url, params: { menu: { name: 'New menu' } }
+      post menus_url, params: { menu: { name: 'New menu', restaurant_id: restaurants(:popos).id } }
     end
 
     assert_redirected_to menu_url(Menu.last)
@@ -60,6 +60,7 @@ class MenusControllerTest < ActionDispatch::IntegrationTest
         post menus_url, params: {
           menu: {
             name: 'New Menu',
+            restaurant_id: restaurants(:popos).id,
             menus_items_attributes: [
               { item_id: salad.id, price: 9.99 },
               { item_id: steak.id, price: 14.99 }

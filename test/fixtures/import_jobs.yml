@@ -1,0 +1,17 @@
+
+started_job:
+  start_time: <%= Time.current %>
+  status: started
+  raw_json: '{"test": "started data"}'
+
+completed_job:
+  start_time: <%= 1.hour.ago %>
+  end_time: <%= Time.current %>
+  status: completed
+  raw_json: '{"test": "completed data"}'
+
+failed_job:
+  start_time: <%= 2.hours.ago %>
+  end_time: <%= 1.hour.ago %>
+  status: failed
+  raw_json: '{"test": "failed data"}'

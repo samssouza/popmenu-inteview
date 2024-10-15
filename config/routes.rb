@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :restaurants
+  resources :restaurants do
+    collection { post :import }
+  end
   resources :items
   resources :menus_items
   resources :menus

@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: %i[ show edit update destroy ]
-
+  skip_before_action :verify_authenticity_token, only: [:import]
   # GET /restaurants or /restaurants.json
   def index
     @restaurants = Restaurant.all
@@ -55,6 +55,29 @@ class RestaurantsController < ApplicationController
       format.html { redirect_to restaurants_path, status: :see_other, notice: "Restaurant was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def import
+    json_data = request.body.read
+    service = RestaurantImportService.new(json_data)
+    import_job  = service.call
+
+    if import_job.completed?
+      render json: {
+        status: 'success',
+        import_job_id: import_job.id,
+        message: 'Import completed successfully',
+        logs: import_job.import_logs.to_json
+      }, status: :created
+    else import_job.failed?
+      render json: {
+        status: 'error',
+        import_job_id: import_job.id,
+        message: 'Import failed',
+        logs: import_job.import_logs.to_json
+      }, status: :unprocessable_entity
+    end
+
   end
 
   private

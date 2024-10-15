@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_15_124512) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_15_223646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "import_jobs", force: :cascade do |t|
+    t.datetime "start_time", precision: nil, null: false
+    t.datetime "end_time", precision: nil
+    t.integer "status", default: 0, null: false
+    t.text "raw_json", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "import_logs", force: :cascade do |t|
+    t.bigint "import_job_id", null: false
+    t.string "entity", null: false
+    t.string "name", null: false
+    t.integer "status", null: false
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["import_job_id"], name: "index_import_logs_on_import_job_id"
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -45,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_15_124512) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "import_logs", "import_jobs"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "menus_items", "items"
   add_foreign_key "menus_items", "menus"

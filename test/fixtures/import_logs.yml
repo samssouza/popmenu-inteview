@@ -1,0 +1,13 @@
+success_log:
+  import_job: started_job
+  entity: 'restaurant'
+  name: 'Successful Restaurant'
+  status: success
+  message: 'Successfully imported'
+
+fail_log:
+  import_job: failed_job
+  entity: 'menu'
+  name: 'Failed Menu'
+  status: fail
+  message: 'Import failed due to invalid data'

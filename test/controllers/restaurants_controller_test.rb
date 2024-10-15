@@ -176,4 +176,51 @@ class RestaurantsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to restaurant_url(@restaurant)
     assert @restaurant.reload.menus.find_by(name: 'Brunch').present?
   end
+
+
+  test "should import restaurants successfully" do
+    assert_difference('ImportJob.count', 1) do
+      assert_difference('Restaurant.count', 2) do
+        post import_restaurants_url, params: {
+          restaurants: [
+            {
+              name: "New Restaurant 1",
+              menus: [
+                {
+                  name: "Lunch Menu",
+                  menu_items: [
+                    { name: "Burger", price: 10.99 },
+                    { name: "Salad", price: 7.99 }
+                  ]
+                }
+              ]
+            },
+            {
+              name: "New Restaurant 2",
+              menus: [
+                {
+                  name: "Dinner Menu",
+                  menu_items: [
+                    { name: "Steak", price: 25.99 },
+                    { name: "Fish", price: 18.99 }
+                  ]
+                }
+              ]
+            }
+          ]
+        }, as: :json
+      end
+    end
+
+    assert_response :created
+
+    response_body = JSON.parse(response.body)
+    assert_equal 'success', response_body['status']
+    assert_equal 'Import completed successfully', response_body['message']
+
+    import_job = ImportJob.last
+    assert_equal 'completed', import_job.status
+    assert_equal 12, import_job.import_logs.count # 2 restaurants + 2 menus + 4 menu items + 4 items
+  end
+
 end
